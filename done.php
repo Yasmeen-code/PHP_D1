@@ -1,44 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Secure Form Output</title>
 </head>
-
 <body>
-    <?php
 
-    $value = $_POST['gender'];
-    if ($value === 'female') {
-        echo " Thanks miss " . $_POST['first_name'] . " " . $_POST['last_name'] . "<br>";
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $first_name = htmlspecialchars($_POST['first_name'] ?? '');
+    $last_name = htmlspecialchars($_POST['last_name'] ?? '');
+    $gender = htmlspecialchars($_POST['gender'] ?? '');
+    $address = htmlspecialchars($_POST['address'] ?? '');
+    $country = htmlspecialchars($_POST['country'] ?? '');
+    $department = htmlspecialchars($_POST['department'] ?? '');
+    $username = htmlspecialchars($_POST['username'] ?? '');
+    $password = htmlspecialchars($_POST['password'] ?? '');
+    $skills = $_POST['skills'] ?? [];
+
+    if ($gender === 'female') {
+        echo "Thanks Miss $first_name $last_name<br><br>";
+    } else {
+        echo "Thanks Mr. $first_name $last_name<br><br>";
     }
-    echo "<br> <br>";
 
-    echo "Your Inormation is: <br> <br>";
-    echo "Name: " . $_POST['first_name'] . " " . $_POST['last_name'] . "<br> <br>";
-    echo "Address: " . $_POST['address'] . "<br> <br>";
-    echo "Country: " . $_POST['country'] . "<br> <br>";
-    echo "Your Skills:";
-    echo "<br>";
+    echo "Your Information is:<br><br>";
+    echo "Name: $first_name $last_name<br><br>";
+    echo "Address: $address<br><br>";
+    echo "Country: $country<br><br>";
 
-    if ($_POST['skills']) {
-    foreach ($_POST['skills'] as $skill) {
-        echo $skill . "<br>";
+    echo "Your Skills:<br>";
+    if (is_array($skills)) {
+        foreach ($skills as $skill) {
+            echo htmlspecialchars($skill) . "<br>";
+        }
     }
-} 
+
     echo "<br>";
-    echo "Department: " . $_POST['department'] . "<br> <br>";
-    echo "Username: " . $_POST['username'] . "<br> <br>";
-    echo "Password: " . $_POST['password'] . "<br> <br>";
-
-
-
-
-    ?>
-
+    echo "Department: $department<br><br>";
+    echo "Username: $username<br><br>";
+    echo "Password: $password<br><br>";
+} else {
+    echo "No data submitted.";
+}
+?>
 
 </body>
-
 </html>

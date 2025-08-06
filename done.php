@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $department = htmlspecialchars($_POST['department'] ?? '');
     $username = htmlspecialchars($_POST['username'] ?? '');
     $password = htmlspecialchars($_POST['password'] ?? '');
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $skills = $_POST['skills'] ?? [];
 
     if ($gender === 'female') {
@@ -40,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<br>";
     echo "Department: $department<br><br>";
     echo "Username: $username<br><br>";
-    echo "Password: $password<br><br>";
+    echo "Password: $hashed_password <br><br>";
 } else {
     echo "No data submitted.";
 }

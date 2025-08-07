@@ -8,7 +8,6 @@
 </head>
 
 <body>
-
     <div class="container mt-5">
         <h1 class="mb-4">Registration Form</h1>
     <form action="done.php" method="POST">
